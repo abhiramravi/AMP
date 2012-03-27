@@ -56,7 +56,8 @@ public class PlayerPanel extends JPanel {
 				if( player.getState() == State.PLAY )
 					player.setState(State.PAUSE);
 				else
-					player.setState(State.PLAY);
+					player.setState(State.PLAY); 
+				
 			}
 		});
 		add(playPauseButton);

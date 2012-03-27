@@ -85,7 +85,6 @@ public class ThreadedPlayer implements Runnable {
 	private void playSong(Song song) {
 		if (song == null)
 			return;
-
 		String filePath = song.getFile().getAbsolutePath();
 		System.err.println("Playing : " + filePath);
 		try {
@@ -146,7 +145,7 @@ public class ThreadedPlayer implements Runnable {
 			// been stopped.
 			while (!trackComplete && state != State.STOP) {
 				trackComplete = ((nBytesRead = din.read(data, 0, data.length)) == -1);
-
+				
 				// Check if you have been paused; if so, wait until that state
 				// changes.
 				stateLock.lock();
