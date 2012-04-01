@@ -2,6 +2,7 @@ package iitm.apl.player.ui;
 
 import iitm.apl.player.Song;
 
+import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,18 +15,24 @@ public class LibraryTableModel extends AbstractTableModel {
 
 	// TODO: Change to your implementation of Trie/BK-Tree
 	private Vector<Song> songListing;
+	private int songIteratorIdx;
+	private Song currentSong;
+	private Iterator<Song> songIterator;
 
 	LibraryTableModel() {
 		songListing = new Vector<Song>();
+		songIterator = songListing.iterator();
 	}
 
 	public void add(Song song) {
 		songListing.add(song);
+		resetIdx();
 		fireTableDataChanged();
 	}
 
 	public void add(Vector<Song> songs) {
 		songListing.addAll(songs);
+		resetIdx();
 		fireTableDataChanged();
 	}
 
@@ -33,10 +40,28 @@ public class LibraryTableModel extends AbstractTableModel {
 		// TODO: Connect the searchText keyPressed handler to update the filter
 		// here.
 	}
-
+	
+	public void resetIdx()
+	{
+		songIteratorIdx = -1;
+		currentSong = null;
+		songIterator = songListing.iterator();
+	}
 	// Gets the song at the currently visible index
 	public Song get(int idx) {
-		return songListing.get(idx);
+		if( songIteratorIdx == idx )
+			return currentSong;
+		
+		if(songIteratorIdx > idx)
+		{
+			resetIdx();
+		}
+		while( songIteratorIdx < idx && songIterator.hasNext() )
+		{
+			currentSong = songIterator.next();
+			songIteratorIdx++;
+		}
+		return currentSong;
 	}
 
 	@Override
@@ -54,7 +79,8 @@ public class LibraryTableModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		// TODO: Get the appropriate row
-		Song song = songListing.get(row);
+		Song song = get(row);
+		if(song == null) return null;
 
 		switch (col) {
 		case 0: // Title

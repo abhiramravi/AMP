@@ -66,6 +66,7 @@ public class Song {
 		return header.getTrackLength();
 	}
 
+	@Override
 	public String toString() {
 		return getArtist() + " - " + getTitle() + " - " + getAlbum();
 	}
