@@ -1,9 +1,15 @@
 package iitm.apl.player.ui;
 
+import iitm.apl.bktree.BKTree;
 import iitm.apl.player.Song;
 
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.Vector;
+
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -36,9 +42,28 @@ public class LibraryTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	public void filter(String searchString) {
+	public void filter(String searchTerm, BKTree<String> songTree, Hashtable wordToSong) {
 		// TODO: Connect the searchText keyPressed handler to update the filter
 		// here.
+		/* Split the searchTerm in to its words */
+		String[] searchTermWords = searchTerm.split(" ");
+		
+		/*Initial checking with only one word - later implement loop and extend to multiple words */
+		HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[0], 1);
+		Set<String> fsl = filteredSongs.keySet();
+		Vector<String> filteredSongsList = new Vector<String>(fsl);
+		songListing.removeAllElements();
+		for(String string : filteredSongsList)
+		{
+			if(!songListing.contains(wordToSong.get(string))) songListing.add((Song) wordToSong.get(string));
+		}
+		songIterator = songListing.iterator();
+		
+		
+		fireTableDataChanged();
+		System.out.println(filteredSongsList);
+		
+		
 	}
 	
 	public void resetIdx()
