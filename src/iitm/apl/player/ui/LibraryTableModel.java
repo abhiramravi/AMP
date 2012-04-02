@@ -57,12 +57,10 @@ public class LibraryTableModel extends AbstractTableModel {
 		{
 			if(!songListing.contains(wordToSong.get(string))) songListing.add((Song) wordToSong.get(string));
 		}
-		songIterator = songListing.iterator();
-		
-		
+		resetIdx();
 		fireTableDataChanged();
 		System.out.println(filteredSongsList);
-		
+		System.out.println("Song : " + songListing);
 		
 	}
 	
