@@ -20,7 +20,7 @@ public class LibraryTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 8230354699902953693L;
 
 	// TODO: Change to your implementation of Trie/BK-Tree
-	public final static int thresholdDistance = 7;
+	public final static int thresholdDistance = 3;
 	private Vector<Song> songListing;
 	private int songIteratorIdx;
 	private Song currentSong;
@@ -43,7 +43,7 @@ public class LibraryTableModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	public void filter(String searchTerm, BKTree<String> songTree, Hashtable wordToSong) {
+	public void filter(String searchTerm, BKTree<String> songTree, Vector<Song> songVector, Hashtable wordToSong) {
 		// TODO: Connect the searchText keyPressed handler to update the filter
 		// here.
 		
@@ -73,10 +73,26 @@ public class LibraryTableModel extends AbstractTableModel {
 		String[] searchTermWords = searchTerm.split(" ");
 		
 		/*Initial checking with only one word - later implement loop and extend to multiple words */
+		songListing.removeAllElements();
+		
+		/* First checking for substrings and starting prefixes - highest preference */
+		for(Song song : songVector)
+		{
+			if(song.getTitle().toLowerCase().startsWith(searchTerm))
+			{
+				if(!songListing.contains(song)) songListing.add(song);
+				System.out.println("Aha1!" + song);
+			}
+			if(song.getTitle().toLowerCase().contains(searchTerm))
+			{
+				if(!songListing.contains(song)) songListing.add(song);
+				System.out.println("Aha2!" + song);
+			}
+		}
 		HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[0], thresholdDistance);
 		Set<String> fsl = filteredSongs.keySet();
 		Vector<String> filteredSongsList = new Vector<String>(fsl);
-		songListing.removeAllElements();
+		
 		for(String string : filteredSongsList)
 		{
 			Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);

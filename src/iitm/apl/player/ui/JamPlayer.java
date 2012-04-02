@@ -128,7 +128,7 @@ public class JamPlayer {
 					searchTerm = searchTerm.concat(Character.toString(key));
 				}
 				/* Pass control to the filter function in the libraryDataModel */
-				libraryModel.filter(searchTerm, songTree, wordToSong);
+				libraryModel.filter(searchTerm, songTree, songVector, wordToSong);
 			}
 
 			@Override
@@ -201,7 +201,7 @@ public class JamPlayer {
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 	}
-
+	public Vector<Song> songVector;
 	private JMenuBar createMenuBar() {
 		JMenuBar mbar = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -210,6 +210,7 @@ public class JamPlayer {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Vector<Song> songs = addFileDialog();
+				songVector = new Vector<Song>(songs);
 				if (songs != null)
 				{
 					/* Adds the elements to a BKTree */
@@ -286,7 +287,7 @@ public class JamPlayer {
 				System.out.println(wordToSong);
 			}
 		}
-		System.out.println(wordToSong.get("For"));
+		System.out.println("The word For :" + wordToSong.get("For"));
 		return bktree;
 	}
 	public static void main(String[] args) {
