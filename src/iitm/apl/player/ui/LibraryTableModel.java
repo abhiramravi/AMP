@@ -20,7 +20,7 @@ public class LibraryTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 8230354699902953693L;
 
 	// TODO: Change to your implementation of Trie/BK-Tree
-	public final static int thresholdDistance = 5;
+	public final static int thresholdDistance = 7;
 	private Vector<Song> songListing;
 	private int songIteratorIdx;
 	private Song currentSong;
@@ -46,6 +46,8 @@ public class LibraryTableModel extends AbstractTableModel {
 	public void filter(String searchTerm, BKTree<String> songTree, Hashtable wordToSong) {
 		// TODO: Connect the searchText keyPressed handler to update the filter
 		// here.
+		
+		searchTerm = searchTerm.toLowerCase();
 		/* Suppose the user has not typed any text, display all the songs and return */
 		if(searchTerm.compareTo("") == 0)
 		{
@@ -55,7 +57,11 @@ public class LibraryTableModel extends AbstractTableModel {
 			songListing.removeAllElements();
 			for(String string : filteredSongsList)
 			{
-				if(!songListing.contains(wordToSong.get(string))) songListing.add((Song) wordToSong.get(string));
+				Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+				for( Song song : vSong )
+				{
+					if(!songListing.contains(song)) songListing.add(song);
+				}
 			}
 			resetIdx();
 			fireTableDataChanged();
@@ -73,7 +79,11 @@ public class LibraryTableModel extends AbstractTableModel {
 		songListing.removeAllElements();
 		for(String string : filteredSongsList)
 		{
-			if(!songListing.contains(wordToSong.get(string))) songListing.add((Song) wordToSong.get(string));
+			Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+			for( Song song : vSong )
+			{
+				if(!songListing.contains(song)) songListing.add(song);
+			}
 		}
 		resetIdx();
 		fireTableDataChanged();

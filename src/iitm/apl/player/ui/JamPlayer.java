@@ -268,23 +268,25 @@ public class JamPlayer {
 		BKTree<String> bktree = new BKTree<String>(new LevenshteinDistance());
 		for(Song song : songs)
 		{
-			String title = song.getTitle();
+			String title = song.getTitle().toLowerCase();
 			String[] titleWords = title.split(" ");
 			for(String string : titleWords)
 			{
 				Vector<Song> list = new Vector<Song>();
 				/* If the hashtable contains the string already, add the song to the list that is hashed by the string*/
-				if(wordToSong.contains(string))
+				if(wordToSong.containsKey(string))
 				{
 					list = (Vector<Song>) wordToSong.get(string);
 				}
 				/* If not, or either way, just add the song to the list, and the add the set to the hashtable */
 				list.add(song);
+				wordToSong.remove(string);
 				wordToSong.put(string, list);
 				bktree.add(string);
+				System.out.println(wordToSong);
 			}
 		}
-		//System.out.println(wordToSong);
+		System.out.println(wordToSong.get("For"));
 		return bktree;
 	}
 	public static void main(String[] args) {
