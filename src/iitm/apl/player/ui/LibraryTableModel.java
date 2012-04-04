@@ -38,10 +38,7 @@ public class LibraryTableModel extends AbstractTableModel {
 	}
 
 	public void add(Vector<Song> songs) {
-		for(Song song : songs)
-		{
-			if(!songListing.contains(song)) songListing.addAll(songs);
-		}
+		songListing.addAll(songs);
 		resetIdx();
 		fireTableDataChanged();
 	}
@@ -54,9 +51,18 @@ public class LibraryTableModel extends AbstractTableModel {
 		/* Suppose the user has not typed any text, display all the songs and return */
 		if(searchTerm.compareTo("") == 0)
 		{
+			HashMap<String, Integer> filteredSongs = songTree.makeQuery("", 100);
+			Set<String> fsl = filteredSongs.keySet();
+			Vector<String> filteredSongsList = new Vector<String>(fsl);
 			songListing.removeAllElements();
-			songListing.addAll(songVector);
-			
+			for(String string : filteredSongsList)
+			{
+				Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+				for( Song song : vSong )
+				{
+					if(!songListing.contains(song)) songListing.add(song);
+				}
+			}
 			resetIdx();
 			fireTableDataChanged();
 			return;
@@ -72,12 +78,12 @@ public class LibraryTableModel extends AbstractTableModel {
 		/* First checking for substrings and starting prefixes - highest preference */
 		for(Song song : songVector)
 		{
-			if(song.getTitle().toLowerCase().startsWith(searchTermWords[0]))
+			if(song.getTitle().toLowerCase().startsWith(searchTerm))
 			{
 				if(!songListing.contains(song)) songListing.add(song);
 				System.out.println("Aha1!" + song);
 			}
-			if(song.getTitle().toLowerCase().contains(searchTermWords[0]))
+			if(song.getTitle().toLowerCase().contains(searchTerm))
 			{
 				if(!songListing.contains(song)) songListing.add(song);
 				System.out.println("Aha2!" + song);
