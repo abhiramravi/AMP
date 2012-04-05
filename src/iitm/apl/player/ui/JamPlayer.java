@@ -8,7 +8,9 @@ import iitm.apl.player.ThreadedPlayer;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -264,7 +266,7 @@ public class JamPlayer {
 	
 	/* Method to convert Vector of Songs to a BKTree of Strings with the song "title" - NOTE TITLE */
 	Hashtable wordToSong = new Hashtable();
-	public BKTree<String> VectorToBKTree(Vector<Song> songs)
+	public BKTree<String> VectorToBKTree(Vector<Song> songs) 
 	{
 		BKTree<String> bktree = new BKTree<String>(new LevenshteinDistance());
 		for(Song song : songs)
@@ -287,7 +289,6 @@ public class JamPlayer {
 				//System.out.println(wordToSong);
 			}
 		}
-		System.out.println("The word For :" + wordToSong.get("For"));
 		return bktree;
 	}
 	public static void main(String[] args) {

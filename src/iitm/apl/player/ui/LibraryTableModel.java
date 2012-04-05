@@ -20,7 +20,7 @@ public class LibraryTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 8230354699902953693L;
 
 	// TODO: Change to your implementation of Trie/BK-Tree
-	public final static int thresholdDistance = 3;
+	public final static int thresholdDistance = 2;
 	private Vector<Song> songListing;
 	private int songIteratorIdx;
 	private Song currentSong;
@@ -75,36 +75,7 @@ public class LibraryTableModel extends AbstractTableModel {
 		songListing.removeAllElements();
 		
 		/* First checking for substrings and starting prefixes - highest preference */
-		/*
-		for(Song song : songVector)
-		{
-			if(song.getTitle().toLowerCase().startsWith(searchTermWords[0]))
-			{
-				if(!songListing.contains(song)) songListing.add(song);
-				System.out.println("Aha1!" + song);
-			}
-			if(song.getTitle().toLowerCase().contains(searchTermWords[0]))
-			{
-				if(!songListing.contains(song)) songListing.add(song);
-				System.out.println("Aha2!" + song);
-			}
-		}
-		HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[0], thresholdDistance);
-		Set<String> fsl = filteredSongs.keySet();
-		Vector<String> filteredSongsList = new Vector<String>(fsl);
-
-		for(String string : filteredSongsList)
-		{
-			Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
-			for( Song song : vSong )
-			{
-				if(!songListing.contains(song)) songListing.add(song);
-			}
-		}
-		resetIdx();
-		fireTableDataChanged();
-		System.out.println(filteredSongsList);
-		System.out.println("Song : " + songListing);*/
+		
 		
 		Vector<Song> yin = new Vector<Song>();
 		Vector<Song> yang = new Vector<Song>();
@@ -136,6 +107,7 @@ public class LibraryTableModel extends AbstractTableModel {
 					}
 				}
 				HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[i], thresholdDistance);
+				System.out.println("The query of searchTermWords[i] returned :"+filteredSongs);
 				Set<String> fsl = filteredSongs.keySet();
 				Vector<String> filteredSongsList = new Vector<String>(fsl);
 				
@@ -151,7 +123,7 @@ public class LibraryTableModel extends AbstractTableModel {
 						}
 					}
 				}
-				System.out.println(i + ": yin : "+ yin);
+				//System.out.println(i + ": yin : "+ yin);
 				isYin = !isYin;
 			}
 			else
@@ -181,7 +153,7 @@ public class LibraryTableModel extends AbstractTableModel {
 					}
 				}
 				isYin = !isYin;
-				System.out.println(i + " : yang : "+ yang);
+				//System.out.println(i + " : yang : "+ yang);
 			}
 		}
 		if(isYin) songListing = new Vector<Song>(yang); 

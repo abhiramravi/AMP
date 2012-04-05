@@ -58,7 +58,7 @@ public class BKTree <T>
 			{
 				hmap.put(this.term, distAtNode);
 			}
-			for( int i = distAtNode - lbound; i <= lbound + distAtNode; i++ )
+			for( int i = distAtNode - lbound; i <= distAtNode + lbound; i++ )
 			{
 				Node child = children.get(i);
 				if(child != null) child.makeQuery(term, lbound, hmap);
@@ -83,7 +83,7 @@ public class BKTree <T>
 	}
 	public HashMap<T, Integer> makeQuery(T key, int lbound)
 	{
-		matches = new HashMap<T, Integer>();
+		matches = new HashMap<T, Integer>();		
 		root.makeQuery(key, lbound, matches);
 		return matches;
 	}
