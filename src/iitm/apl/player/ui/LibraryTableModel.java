@@ -75,6 +75,36 @@ public class LibraryTableModel extends AbstractTableModel {
 		songListing.removeAllElements();
 		
 		/* First checking for substrings and starting prefixes - highest preference */
+		for(Song song : songVector)
+		{
+			if(song.getTitle().toLowerCase().startsWith(searchTermWords[0]))
+			{
+				if(!songListing.contains(song)) songListing.add(song);
+				System.out.println("Aha1!" + song);
+			}
+			if(song.getTitle().toLowerCase().contains(searchTermWords[0]))
+			{
+				if(!songListing.contains(song)) songListing.add(song);
+				System.out.println("Aha2!" + song);
+			}
+		}
+		HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[0], thresholdDistance);
+		Set<String> fsl = filteredSongs.keySet();
+		Vector<String> filteredSongsList = new Vector<String>(fsl);
+
+		for(String string : filteredSongsList)
+		{
+			Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+			for( Song song : vSong )
+			{
+				if(!songListing.contains(song)) songListing.add(song);
+			}
+		}
+		resetIdx();
+		fireTableDataChanged();
+		System.out.println(filteredSongsList);
+		System.out.println("Song : " + songListing);
+		/*
 		Vector<Song> yin = new Vector<Song>();
 		Vector<Song> yang = new Vector<Song>();
 		boolean isYin = true;
@@ -83,6 +113,8 @@ public class LibraryTableModel extends AbstractTableModel {
 		{
 			if(isYin)
 			{
+				// Must remove all elements from the list before re-adding, else multiple copies of same song in each list 
+				yin.removeAllElements();
 				for(Song song : songVector)
 				{
 					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i]))
@@ -123,6 +155,7 @@ public class LibraryTableModel extends AbstractTableModel {
 			}
 			else
 			{
+				yang.removeAllElements();
 				for(Song song : songVector)
 				{
 					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i])) 
@@ -150,13 +183,10 @@ public class LibraryTableModel extends AbstractTableModel {
 				System.out.println(i + " : yang : "+ yang);
 			}
 		}
-		if(isYin) {songListing = new Vector<Song>(yang); System.out.println("I am yin!");}
-		else {songListing = new Vector<Song>(yin);System.out.println("I am yang!");}
+		if(isYin) songListing = new Vector<Song>(yang); 
+		else songListing = new Vector<Song>(yin);
 		resetIdx();
-		fireTableDataChanged();
-		//System.out.println(filteredSongsList);
-		//System.out.println("Song : " + songListing);
-		
+		fireTableDataChanged();*/
 	}
 	
 	public void resetIdx()
