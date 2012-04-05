@@ -68,7 +68,6 @@ public class LibraryTableModel extends AbstractTableModel {
 			return;
 		}
 		
-		
 		/* Split the searchTerm in to its words */
 		String[] searchTermWords = searchTerm.split(" ");
 		
@@ -76,35 +75,87 @@ public class LibraryTableModel extends AbstractTableModel {
 		songListing.removeAllElements();
 		
 		/* First checking for substrings and starting prefixes - highest preference */
-		for(Song song : songVector)
-		{
-			if(song.getTitle().toLowerCase().startsWith(searchTerm))
-			{
-				if(!songListing.contains(song)) songListing.add(song);
-				System.out.println("Aha1!" + song);
-			}
-			if(song.getTitle().toLowerCase().contains(searchTerm))
-			{
-				if(!songListing.contains(song)) songListing.add(song);
-				System.out.println("Aha2!" + song);
-			}
-		}
-		HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[0], thresholdDistance);
-		Set<String> fsl = filteredSongs.keySet();
-		Vector<String> filteredSongsList = new Vector<String>(fsl);
+		Vector<Song> yin = new Vector<Song>();
+		Vector<Song> yang = new Vector<Song>();
+		boolean isYin = true;
 		
-		for(String string : filteredSongsList)
+		for(int i = 0; i < searchTermWords.length; i++)
 		{
-			Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
-			for( Song song : vSong )
+			if(isYin)
 			{
-				if(!songListing.contains(song)) songListing.add(song);
+				for(Song song : songVector)
+				{
+					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i]))
+					{
+						if(!yin.contains(song)) 
+						{
+							if(i == 0) yin.add(song);
+							if(i > 0 && yang.contains(song)) yin.add(song);
+						}
+					}
+					if(song.getTitle().toLowerCase().contains(searchTermWords[i]))
+					{
+						if(!yin.contains(song))
+						{
+							if(i == 0) yin.add(song);
+							if( i > 0 && yang.contains(song)) yin.add(song);
+						}
+					}
+				}
+				HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[i], thresholdDistance);
+				Set<String> fsl = filteredSongs.keySet();
+				Vector<String> filteredSongsList = new Vector<String>(fsl);
+				
+				for(String string : filteredSongsList)
+				{
+					Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+					for( Song song : vSong )
+					{
+						if(!yin.contains(song))
+						{
+							if(i == 0) yin.add(song);
+							if( i > 0 && yang.contains(song)) yin.add(song);
+						}
+					}
+				}
+				System.out.println(i + ": yin : "+ yin);
+				isYin = !isYin;
+			}
+			else
+			{
+				for(Song song : songVector)
+				{
+					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i])) 
+					{
+						if(!yang.contains(song) && yin.contains(song)) yang.add(song); 
+					}
+					if(song.getTitle().toLowerCase().contains(searchTermWords[i]))
+					{
+						if(!yang.contains(song) && yin.contains(song)) yang.add(song); 
+					}
+				}
+				HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[i], thresholdDistance);
+				Set<String> fsl = filteredSongs.keySet();
+				Vector<String> filteredSongsList = new Vector<String>(fsl);
+				
+				for(String string : filteredSongsList)
+				{
+					Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+					for( Song song : vSong )
+					{
+						if(!yang.contains(song) && yin.contains(song)) yin.add(song);
+					}
+				}
+				isYin = !isYin;
+				System.out.println(i + " : yang : "+ yang);
 			}
 		}
+		if(isYin) {songListing = new Vector<Song>(yang); System.out.println("I am yin!");}
+		else {songListing = new Vector<Song>(yin);System.out.println("I am yang!");}
 		resetIdx();
 		fireTableDataChanged();
-		System.out.println(filteredSongsList);
-		System.out.println("Song : " + songListing);
+		//System.out.println(filteredSongsList);
+		//System.out.println("Song : " + songListing);
 		
 	}
 	

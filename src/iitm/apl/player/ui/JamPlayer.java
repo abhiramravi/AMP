@@ -284,7 +284,7 @@ public class JamPlayer {
 				wordToSong.remove(string);
 				wordToSong.put(string, list);
 				bktree.add(string);
-				System.out.println(wordToSong);
+				//System.out.println(wordToSong);
 			}
 		}
 		System.out.println("The word For :" + wordToSong.get("For"));
