@@ -75,6 +75,7 @@ public class LibraryTableModel extends AbstractTableModel {
 		songListing.removeAllElements();
 		
 		/* First checking for substrings and starting prefixes - highest preference */
+		/*
 		for(Song song : songVector)
 		{
 			if(song.getTitle().toLowerCase().startsWith(searchTermWords[0]))
@@ -103,8 +104,8 @@ public class LibraryTableModel extends AbstractTableModel {
 		resetIdx();
 		fireTableDataChanged();
 		System.out.println(filteredSongsList);
-		System.out.println("Song : " + songListing);
-		/*
+		System.out.println("Song : " + songListing);*/
+		
 		Vector<Song> yin = new Vector<Song>();
 		Vector<Song> yang = new Vector<Song>();
 		boolean isYin = true;
@@ -186,7 +187,7 @@ public class LibraryTableModel extends AbstractTableModel {
 		if(isYin) songListing = new Vector<Song>(yang); 
 		else songListing = new Vector<Song>(yin);
 		resetIdx();
-		fireTableDataChanged();*/
+		fireTableDataChanged();
 	}
 	
 	public void resetIdx()
