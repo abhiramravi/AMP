@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -40,7 +41,7 @@ public class PlayerPanel extends JPanel {
 		songLabel.setMinimumSize( new Dimension( 60, 30));
 		
 		// Add buttons
-		JButton prevButton = new JButton("Prev");
+		JButton prevButton = new JButton(new ImageIcon("previous.png"));
 		prevButton.setEnabled( false );
 		prevButton.addActionListener(new ActionListener() {
 			@Override
@@ -49,19 +50,35 @@ public class PlayerPanel extends JPanel {
 		});
 		add(prevButton);
 		
-		JButton playPauseButton = new JButton("Play/Pause");
+		final ImageIcon play = new ImageIcon("play.png");
+		final ImageIcon pause = new ImageIcon("pause.png");
+		  
+		final JButton playPauseButton = new JButton();
+		playPauseButton.setIcon(play);
 		playPauseButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if( player.getState() == State.PLAY )
+					{
 					player.setState(State.PAUSE);
+					playPauseButton.setIcon(play);
+					}
 				else if( player.getState() == State.PAUSE )
+				{
 					player.setState(State.PLAY);
+					playPauseButton.setIcon(pause);
+					
+				}
 			}
 		});
+		
+		if( player.getState() == State.PAUSE )
+			playPauseButton.setIcon(play);
+		else if(player.getState()==State.PLAY)
+			playPauseButton.setIcon(pause);
 		add(playPauseButton);
 		
-		JButton stopButton = new JButton("Stop");
+		JButton stopButton = new JButton(new ImageIcon("stop.png"));
 		stopButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -70,7 +87,7 @@ public class PlayerPanel extends JPanel {
 		});
 		add(stopButton);
 		
-		JButton nextButton = new JButton("Next");
+		JButton nextButton = new JButton(new ImageIcon("next.png"));
 		nextButton.setEnabled( false );
 		nextButton.addActionListener(new ActionListener() {
 			@Override
