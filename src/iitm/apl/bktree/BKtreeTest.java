@@ -19,7 +19,7 @@ public class BKtreeTest
 			bkTree.add(word);
 		}
 		
-		HashMap<String,Integer> queryMap = bkTree.makeQuery("hte", 2);
+		HashMap<String,Integer> queryMap = bkTree.makeQuery("the", 2);
 		System.out.println(queryMap);
 		
 		String searchTerm = "one";

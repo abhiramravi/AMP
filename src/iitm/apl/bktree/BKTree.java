@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class BKTree <T> 
 {
-	private HashMap<T, Integer> matches;
+	private HashMap<T, Integer> collOfMatchedNodes;
 	private Node root;
 	private LevenshteinDistance distance;
 	private T bTerm;
@@ -49,11 +49,6 @@ public class BKTree <T>
 		public void makeQuery(T term, int lbound, HashMap<T, Integer> hmap)
 		{
 			int distAtNode = distance.getLD(term, this.term);
-			//if(distAtNode == lbound)
-			//{
-			//	hmap.put(this.term, distAtNode);
-			//	return;
-			//}
 			if(distAtNode <= lbound)
 			{
 				hmap.put(this.term, distAtNode);
@@ -83,9 +78,9 @@ public class BKTree <T>
 	}
 	public HashMap<T, Integer> makeQuery(T key, int lbound)
 	{
-		matches = new HashMap<T, Integer>();		
-		root.makeQuery(key, lbound, matches);
-		return matches;
+		collOfMatchedNodes = new HashMap<T, Integer>();		
+		root.makeQuery(key, lbound, collOfMatchedNodes);
+		return collOfMatchedNodes;
 	}
 	public int find(T term)
 	{

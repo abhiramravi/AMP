@@ -106,7 +106,7 @@ public class JamPlayer {
 
 		pPanel = new PlayerPanel(player);
 		JLabel searchLabel = new JLabel("Search: ");
-		JTextField searchText = new JTextField(200);
+		final JTextField searchText = new JTextField(200);
 		searchText.setMaximumSize(new Dimension(200, 20));
 		searchText.addKeyListener(new KeyListener() {
 			@Override
@@ -115,21 +115,13 @@ public class JamPlayer {
 				// TODO: Handle the case when the text field has been modified.
 				// Optional: Can you update the search "incrementally" i.e. as
 				// and when the user changes the search text?
-				char key = arg0.getKeyChar();
-				/* If the character is a backspace, cut the last character in the search string */
-				if(key == '\b')
+				searchText.validate();
+				searchTerm = searchText.getText();
+				if(arg0.getKeyChar() != '\b')
 				{
-					if(searchTerm.length() > 0)
-					{
-						searchTerm = searchTerm.substring(0, searchTerm.length()-1);
-					}
+					searchTerm = searchTerm.concat(Character.toString(arg0.getKeyChar()));
 				}
-				/* Else concatenate the entered key to the searchTerm */
-				else
-				{
-					searchTerm = searchTerm.concat(Character.toString(key));
-				}
-				/* Pass control to the filter function in the libraryDataModel */
+				System.out.println(searchTerm);
 				libraryModel.filter(searchTerm, songTree, songVector, wordToSong);
 			}
 
