@@ -49,12 +49,12 @@ public class BKTree <T>
 		public void makeQuery(T term, int lbound, HashMap<T, Integer> hmap)
 		{
 			int distAtNode = distance.getLD(term, this.term);
-			if(distAtNode == lbound)
-			{
-				hmap.put(this.term, distAtNode);
-				return;
-			}
-			if(distAtNode < lbound)
+			//if(distAtNode == lbound)
+			//{
+			//	hmap.put(this.term, distAtNode);
+			//	return;
+			//}
+			if(distAtNode <= lbound)
 			{
 				hmap.put(this.term, distAtNode);
 			}
