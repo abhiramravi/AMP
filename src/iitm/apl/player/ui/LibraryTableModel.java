@@ -20,7 +20,7 @@ public class LibraryTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 8230354699902953693L;
 
 	// TODO: Change to your implementation of Trie/BK-Tree
-	public final static int thresholdDistance = 2;
+	public final static int thresholdDistance = 3;
 	private Vector<Song> songListing;
 	private int songIteratorIdx;
 	private Song currentSong;
@@ -76,7 +76,6 @@ public class LibraryTableModel extends AbstractTableModel {
 		
 		/* First checking for substrings and starting prefixes - highest preference */
 		
-		
 		Vector<Song> yin = new Vector<Song>();
 		Vector<Song> yang = new Vector<Song>();
 		boolean isYin = true;
@@ -107,13 +106,14 @@ public class LibraryTableModel extends AbstractTableModel {
 					}
 				}
 				HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[i], thresholdDistance);
-				System.out.println("The query of searchTermWords[i] returned :"+filteredSongs);
+				System.out.println("The query of searchTermWords["+i+"] returned :"+filteredSongs);
 				Set<String> fsl = filteredSongs.keySet();
 				Vector<String> filteredSongsList = new Vector<String>(fsl);
-				
+				System.out.println("The song list under queue for yin is " + fsl);
 				for(String string : filteredSongsList)
 				{
 					Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+					System.out.println("The song list under queue for the word \""+string+"\" is "+vSong);
 					for( Song song : vSong )
 					{
 						if(!yin.contains(song))
@@ -123,7 +123,7 @@ public class LibraryTableModel extends AbstractTableModel {
 						}
 					}
 				}
-				//System.out.println(i + ": yin : "+ yin);
+				System.out.println(i + ": final shortlisted songs : yin : "+ yin);
 				isYin = !isYin;
 			}
 			else
@@ -141,19 +141,20 @@ public class LibraryTableModel extends AbstractTableModel {
 					}
 				}
 				HashMap<String, Integer> filteredSongs = songTree.makeQuery(searchTermWords[i], thresholdDistance);
+				System.out.println("The query of searchTermWords["+i+"] returned :"+filteredSongs);
 				Set<String> fsl = filteredSongs.keySet();
 				Vector<String> filteredSongsList = new Vector<String>(fsl);
-				
 				for(String string : filteredSongsList)
 				{
 					Vector<Song> vSong = (Vector<Song>) wordToSong.get(string);
+					System.out.println("The song list under queue for the word \""+string+"\" is "+vSong);
 					for( Song song : vSong )
 					{
-						if(!yang.contains(song) && yin.contains(song)) yin.add(song);
+						if(!yang.contains(song) && yin.contains(song)) yang.add(song);
 					}
 				}
 				isYin = !isYin;
-				//System.out.println(i + " : yang : "+ yang);
+				System.out.println(i + " :final shortlisted songs for yang : "+ yang);
 			}
 		}
 		if(isYin) songListing = new Vector<Song>(yang); 
