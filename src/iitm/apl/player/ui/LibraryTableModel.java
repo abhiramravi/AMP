@@ -20,7 +20,7 @@ public class LibraryTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 8230354699902953693L;
 
 	// TODO: Change to your implementation of Trie/BK-Tree
-	public final static int thresholdDistance = 3;
+	public final static int thresholdDistance = 2;
 	private Vector<Song> songListing;
 	private int songIteratorIdx;
 	private Song currentSong;
@@ -88,7 +88,7 @@ public class LibraryTableModel extends AbstractTableModel {
 				yin.removeAllElements();
 				for(Song song : songVector)
 				{
-					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i]))
+					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i]) || song.getAlbum().toLowerCase().startsWith(searchTermWords[i]) || song.getArtist().toLowerCase().startsWith(searchTermWords[i]))
 					{
 						if(!yin.contains(song)) 
 						{
@@ -96,7 +96,7 @@ public class LibraryTableModel extends AbstractTableModel {
 							if(i > 0 && yang.contains(song)) yin.add(song);
 						}
 					}
-					if(song.getTitle().toLowerCase().contains(searchTermWords[i]))
+					if(song.getTitle().toLowerCase().contains(searchTermWords[i]) || song.getAlbum().toLowerCase().contains(searchTermWords[i]) || song.getArtist().toLowerCase().contains(searchTermWords[i]) )
 					{
 						if(!yin.contains(song))
 						{
@@ -131,11 +131,11 @@ public class LibraryTableModel extends AbstractTableModel {
 				yang.removeAllElements();
 				for(Song song : songVector)
 				{
-					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i])) 
+					if(song.getTitle().toLowerCase().startsWith(searchTermWords[i]) || song.getAlbum().toLowerCase().startsWith(searchTermWords[i]) || song.getArtist().toLowerCase().startsWith(searchTermWords[i]))
 					{
 						if(!yang.contains(song) && yin.contains(song)) yang.add(song); 
 					}
-					if(song.getTitle().toLowerCase().contains(searchTermWords[i]))
+					if(song.getTitle().toLowerCase().contains(searchTermWords[i]) || song.getAlbum().toLowerCase().contains(searchTermWords[i]) || song.getArtist().toLowerCase().contains(searchTermWords[i]) )
 					{
 						if(!yang.contains(song) && yin.contains(song)) yang.add(song); 
 					}

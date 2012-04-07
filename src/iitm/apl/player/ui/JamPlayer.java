@@ -280,6 +280,23 @@ public class JamPlayer {
 				bktree.add(string);
 				//System.out.println(wordToSong);
 			}
+			String album = song.getAlbum().toLowerCase();
+			String[] albumWords = album.split(" ");
+			for(String string : albumWords)
+			{
+				Vector<Song> list = new Vector<Song>();
+				/* If the hashtable contains the string already, add the song to the list that is hashed by the string*/
+				if(wordToSong.containsKey(string))
+				{
+					list = (Vector<Song>) wordToSong.get(string);
+				}
+				/* If not, or either way, just add the song to the list, and the add the set to the hashtable */
+				list.add(song);
+				wordToSong.remove(string);
+				wordToSong.put(string, list);
+				bktree.add(string);
+				//System.out.println(wordToSong);
+			}
 		}
 		return bktree;
 	}
