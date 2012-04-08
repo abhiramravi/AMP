@@ -70,5 +70,13 @@ public class Song {
 	public String toString() {
 		return getArtist() + " - " + getTitle() + " - " + getAlbum();
 	}
+	public boolean isSameAs(Song song)
+	{
+		if(this.getTitle().compareTo(song.getTitle()) == 0 && this.getAlbum().compareTo(song.getAlbum()) == 0 && this.getArtist().compareTo(song.getArtist()) == 0)
+		{
+			return true;
+		}
+		else return false;
+	}
 
 }

@@ -89,7 +89,7 @@ public class JamPlayer {
 	 */
 	private void createAndShowGUI() {
 		// Create and set up the window.
-		mainFrame = new JFrame("AMP - The Ultimate Music JukeBox");
+		mainFrame = new JFrame("AMP - The Ultimate Music Player");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setMinimumSize(new Dimension(300, 400));
 
