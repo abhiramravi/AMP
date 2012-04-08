@@ -161,6 +161,7 @@ public class JamPlayer {
 					if (song != null) {
 						player.setSong(song);
 						pPanel.setSong(song);
+						pPanel.playPauseButton.setIcon(pPanel.pause);
 					}
 				}
 			}

@@ -26,6 +26,14 @@ public class PlayerPanel extends JPanel {
 	private JLabel songLabel;
 	private Song currentSong;
 	
+	private JButton prevButton;
+	public final ImageIcon play = new ImageIcon("play.png");
+	public final ImageIcon pause = new ImageIcon("pause.png");
+	public JButton playPauseButton;
+	private JButton stopButton;
+	private JButton nextButton;
+	
+	
 	private ThreadedPlayer player;
 	
 	public PlayerPanel(ThreadedPlayer player_)
@@ -41,7 +49,7 @@ public class PlayerPanel extends JPanel {
 		songLabel.setMinimumSize( new Dimension( 60, 30));
 		
 		// Add buttons
-		JButton prevButton = new JButton(new ImageIcon("previous.png"));
+		prevButton = new JButton(new ImageIcon("previous.png"));
 		prevButton.setEnabled( true );
 		prevButton.addActionListener(new ActionListener() 
 		{
@@ -52,10 +60,9 @@ public class PlayerPanel extends JPanel {
 		});
 		add(prevButton);
 		
-		final ImageIcon play = new ImageIcon("play.png");
-		final ImageIcon pause = new ImageIcon("pause.png");
+		
 		  
-		final JButton playPauseButton = new JButton();
+		playPauseButton = new JButton();
 		playPauseButton.setIcon(play);
 		playPauseButton.addActionListener(new ActionListener() {
 			@Override
@@ -80,7 +87,7 @@ public class PlayerPanel extends JPanel {
 			playPauseButton.setIcon(pause);
 		add(playPauseButton);
 		
-		JButton stopButton = new JButton(new ImageIcon("stop.png"));
+		stopButton = new JButton(new ImageIcon("stop.png"));
 		stopButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -89,7 +96,7 @@ public class PlayerPanel extends JPanel {
 		});
 		add(stopButton);
 		
-		JButton nextButton = new JButton(new ImageIcon("next.png"));
+		nextButton = new JButton(new ImageIcon("next.png"));
 		nextButton.setEnabled( true );
 		nextButton.addActionListener(new ActionListener() {
 			@Override
