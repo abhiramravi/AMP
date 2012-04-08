@@ -253,17 +253,24 @@ public class JamPlayer {
 		});
 		file.add(sortPlaylist);
 		
-		/*//Work of other batch
-		JMenuItem createPlaylist = new JMenuItem("Create playlist");
-		createPlaylist.addActionListener(new ActionListener() {
+		JMenuItem setFilterLevel = new JMenuItem("Set Search Filter Level");
+		
+		setFilterLevel.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				createPlayListHandler();
+				String thresh = JOptionPane.showInputDialog("Set Filter Level : 0 = strict, 5 = lenient, 2 = optimum", "2");
+				int threshold = Integer.parseInt(thresh);
+				if(threshold < 0 || threshold > 5) 
+				{
+					JOptionPane.showMessageDialog(null, "Invalid Filter Level");
+					return;
+				}
+				LibraryTableModel.thresholdDistance = threshold;
 			}
 		});
-		file.add(createPlaylist);*/
-
+		file.add(setFilterLevel);
+		
 		JMenuItem quitItem = new JMenuItem("Quit");
 		quitItem.addActionListener(new ActionListener() {
 

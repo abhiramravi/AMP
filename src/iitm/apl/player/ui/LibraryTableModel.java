@@ -23,7 +23,7 @@ public class LibraryTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 8230354699902953693L;
 
 	// TODO: Change to your implementation of Trie/BK-Tree
-	public final static int thresholdDistance = 2;
+	public static int thresholdDistance = 2;
 	private Vector<Song> songListing;
 	private int songIteratorIdx;
 	private Song currentSong;
