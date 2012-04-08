@@ -298,6 +298,14 @@ public class JamPlayer {
 
 		mbar.add(file);
 
+		JMenu about = new JMenu("About");
+		JMenu credits = new JMenu(" Copyleft 2012 - Created by ");
+		JMenuItem abhiram = new JMenuItem("Abhiram.R (CS10B060)");
+		JMenuItem eshwar = new JMenuItem("Eshwar.C (CS10B062)");
+		credits.add(abhiram);
+		credits.add(eshwar);
+		about.add(credits);
+		mbar.add(about);
 		return mbar;
 	}
 
