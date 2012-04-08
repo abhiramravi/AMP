@@ -205,13 +205,19 @@ public class JamPlayer {
 				Vector<Song> songs = addFileDialog();
 				for(Song song : songs)
 				{
-					if(!songVector.contains(song)) songVector.add(song);
+					boolean dontAdd = false;
+					for(Song song_2 : songVector)
+					{
+						if(song.isSameAs(song_2)) dontAdd = true;
+					}
+					if(dontAdd == false) songVector.add(song);
 				}
 				System.out.println("The size of songVector is " + songVector.size());
 				if (songs != null)
 				{
 					/* Adds the elements to a BKTree */
 					songTree = VectorToBKTree(songVector);
+					libraryModel.clearSongListing();
 					libraryModel.add(songVector);
 				}
 			}

@@ -45,6 +45,10 @@ public class LibraryTableModel extends AbstractTableModel {
 		resetIdx();
 		fireTableDataChanged();
 	}
+	public void clearSongListing()
+	{
+		songListing.removeAllElements();
+	}
 	
 	public void filter(String searchTerm, BKTree<String> songTree, Vector<Song> songVector, Hashtable wordToSong) {
 		// TODO: Connect the searchText keyPressed handler to update the filter
