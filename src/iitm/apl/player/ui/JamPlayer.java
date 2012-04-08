@@ -99,11 +99,9 @@ public class JamPlayer {
 		pane.add(Box.createHorizontalStrut(30), BorderLayout.EAST);
 		pane.add(Box.createHorizontalStrut(30), BorderLayout.WEST);
 		pane.add(Box.createVerticalStrut(30), BorderLayout.SOUTH);
-
 		JPanel mainPanel = new JPanel();
 		GroupLayout layout = new GroupLayout(mainPanel);
 		mainPanel.setLayout(layout);
-
 		pPanel = new PlayerPanel(player);
 		JLabel searchLabel = new JLabel("Search: ");
 		final JTextField searchText = new JTextField(200);
@@ -133,7 +131,6 @@ public class JamPlayer {
 			public void keyPressed(KeyEvent arg0) {
 			}
 		});
-
 		libraryModel = new LibraryTableModel();
 		libraryTable = new JTable(libraryModel);
 		libraryTable.addMouseListener(new MouseListener() {
@@ -166,7 +163,6 @@ public class JamPlayer {
 				}
 			}
 		});
-
 		libraryTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		JScrollPane libraryPane = new JScrollPane(libraryTable);
 
@@ -188,9 +184,11 @@ public class JamPlayer {
 								.addComponent(searchLabel)
 								.addComponent(searchText))
 				.addComponent(libraryPane));
-
+		
 		pane.add(mainPanel, BorderLayout.CENTER);
-
+		
+		
+		
 		// Display the window.
 		mainFrame.pack();
 		mainFrame.setVisible(true);

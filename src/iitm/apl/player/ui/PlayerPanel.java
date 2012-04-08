@@ -6,6 +6,7 @@ import iitm.apl.player.ThreadedPlayer.State;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 
 /**
  * PlayerPanel
@@ -104,6 +106,12 @@ public class PlayerPanel extends JPanel {
 			}
 		});
 		add(nextButton);
+		/*
+		songLabel = new JLabel("Now Playing : ");
+		Font f = new Font("Helvetica", Font.ITALIC, 15);
+		songLabel.setFont(f);
+		add(songLabel);
+		*/
 	}
 
 	public void setSong(Song song)
