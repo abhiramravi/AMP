@@ -26,7 +26,7 @@ public class PlayerPanel extends JPanel {
 	private static final long serialVersionUID = -5264313656161958408L;
 	
 	private JLabel songLabel;
-	private Song currentSong;
+	public Song currentSong;
 	
 	private JButton prevButton;
 	public final ImageIcon play = new ImageIcon("play.png");

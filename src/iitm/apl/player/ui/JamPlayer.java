@@ -38,7 +38,7 @@ public class JamPlayer {
 	private Thread playerThread = null;
 	private ThreadedPlayer player = null;
 	
-	public JLabel currentStatus = new JLabel("Now Playing : ");
+	public static JLabel currentStatus = new JLabel("Now Playing : ");
 
 	public JamPlayer() {
 		// Create the player

@@ -119,6 +119,10 @@ public class ThreadedPlayer implements Runnable {
 			System.out.println(e.toString());
 			System.exit(1);
 		}
+		Song next = JamPlayer.libraryModel.getNextSong();
+		setSong(next);
+		JamPlayer.pPanel.setSong(next);
+		JamPlayer.currentStatus.setText("Now Playing : "+next.toString());
 	}
 
 	/**

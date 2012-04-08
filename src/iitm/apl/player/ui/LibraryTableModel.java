@@ -49,7 +49,20 @@ public class LibraryTableModel extends AbstractTableModel {
 	{
 		songListing.removeAllElements();
 	}
-	
+	public Song getNextSong()
+	{
+		if(!songListing.contains(currentSong)) return songListing.firstElement();
+		int i = songListing.indexOf(currentSong);
+		if(songListing.capacity() > i) return songListing.get(i+1);
+		else return songListing.firstElement();
+	}
+	public Song getPrevSong()
+	{
+		if(!songListing.contains(currentSong)) return songListing.firstElement();
+		int i = songListing.indexOf(currentSong);
+		if(songListing.capacity() > 1) return songListing.get(i-1);
+		else return songListing.firstElement();
+	}
 	public void filter(String searchTerm, BKTree<String> songTree, Vector<Song> songVector, Hashtable wordToSong) {
 		// TODO: Connect the searchText keyPressed handler to update the filter
 		// here.
