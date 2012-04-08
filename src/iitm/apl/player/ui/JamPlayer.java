@@ -194,7 +194,7 @@ public class JamPlayer {
 		mainFrame.pack();
 		mainFrame.setVisible(true);
 	}
-	public Vector<Song> songVector;
+	public Vector<Song> songVector = new Vector<Song>();
 	private JMenuBar createMenuBar() {
 		JMenuBar mbar = new JMenuBar();
 		JMenu file = new JMenu("File");
@@ -203,12 +203,16 @@ public class JamPlayer {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Vector<Song> songs = addFileDialog();
-				songVector = new Vector<Song>(songs);
+				for(Song song : songs)
+				{
+					if(!songVector.contains(song)) songVector.add(song);
+				}
+				System.out.println("The size of songVector is " + songVector.size());
 				if (songs != null)
 				{
 					/* Adds the elements to a BKTree */
-					songTree = VectorToBKTree(songs);
-					libraryModel.add(songs);
+					songTree = VectorToBKTree(songVector);
+					libraryModel.add(songVector);
 				}
 			}
 		});
