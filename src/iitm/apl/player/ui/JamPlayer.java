@@ -30,13 +30,15 @@ public class JamPlayer {
 
 	// UI Items
 	private JFrame mainFrame;
-	private PlayerPanel pPanel;
+	public static PlayerPanel pPanel;
 
 	private JTable libraryTable;
-	private LibraryTableModel libraryModel;
+	public static LibraryTableModel libraryModel;
 
 	private Thread playerThread = null;
 	private ThreadedPlayer player = null;
+	
+	public JLabel currentStatus = new JLabel("Now Playing : ");
 
 	public JamPlayer() {
 		// Create the player
@@ -131,6 +133,9 @@ public class JamPlayer {
 			public void keyPressed(KeyEvent arg0) {
 			}
 		});
+		currentStatus.setFont(new Font("Helvetica", Font.ITALIC, 13));
+		pane.add(currentStatus, BorderLayout.PAGE_END);
+		
 		libraryModel = new LibraryTableModel();
 		libraryTable = new JTable(libraryModel);
 		libraryTable.addMouseListener(new MouseListener() {
@@ -159,6 +164,7 @@ public class JamPlayer {
 						player.setSong(song);
 						pPanel.setSong(song);
 						pPanel.playPauseButton.setIcon(pPanel.pause);
+						currentStatus.setText("Now Playing : "+song.toString());
 					}
 				}
 			}

@@ -1,5 +1,7 @@
 package iitm.apl.player;
 
+import iitm.apl.player.ui.JamPlayer;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -111,7 +113,6 @@ public class ThreadedPlayer implements Runnable {
 			setState(State.PLAY);
 			rawPlay(decodedFormat, din);
 			setState(State.STOP);
-			
 			in.close();
 
 		} catch (Exception e) {

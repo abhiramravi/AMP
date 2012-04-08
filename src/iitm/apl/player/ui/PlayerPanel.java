@@ -108,9 +108,10 @@ public class PlayerPanel extends JPanel {
 		add(nextButton);
 		/*
 		songLabel = new JLabel("Now Playing : ");
+		songLabel.setMaximumSize(new Dimension(30,20));
 		Font f = new Font("Helvetica", Font.ITALIC, 15);
 		songLabel.setFont(f);
-		add(songLabel);
+		add(songLabel,2);
 		*/
 	}
 
