@@ -53,34 +53,34 @@ public class JamPlayer {
 	/**
 	 * Create a file dialog to choose MP3 files to add
 	 */
+	Vector<Song> inputSongs;
 	private Vector<Song> addFileDialog() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		int returnVal = chooser.showOpenDialog(null);
 		if (returnVal != JFileChooser.APPROVE_OPTION)
 			return null;
-
+		inputSongs = new Vector<Song>();
 		File selectedFile = chooser.getSelectedFile();
-		// Read files as songs
-		Vector<Song> songs = new Vector<Song>();
-		if (selectedFile.isFile()
-				&& selectedFile.getName().toLowerCase().endsWith(".mp3")) {
-			songs.add(new Song(selectedFile));
-			return songs;
-		} else if (selectedFile.isDirectory()) {
-			for (File file : selectedFile.listFiles(new FilenameFilter() {
-				@Override
-				public boolean accept(File dir, String name) {
-					return name.toLowerCase().endsWith(".mp3");
-				}
-			}))
-			{
-				songs.add(new Song(file));
-			}
-				
+		
+		return recursiveFileAdd(selectedFile);
+	}
+	private Vector<Song> recursiveFileAdd(File selectedFile)
+	{
+		if (selectedFile.isFile() && selectedFile.getName().toLowerCase().endsWith(".mp3")) 
+		{
+			inputSongs.add(new Song(selectedFile));
+			return inputSongs;
 		}
-
-		return songs;
+		if(selectedFile.isDirectory())
+		{
+			for(File file : selectedFile.listFiles())
+			{
+				if(file.getName().toLowerCase().endsWith(".mp3")) inputSongs.add(new Song(file));
+				if(file.isDirectory()) recursiveFileAdd(file);
+			}
+		}
+		return inputSongs;
 	}
 
 	/**
@@ -89,7 +89,7 @@ public class JamPlayer {
 	 */
 	private void createAndShowGUI() {
 		// Create and set up the window.
-		mainFrame = new JFrame("JamPlayer");
+		mainFrame = new JFrame("AMP - The Ultimate Music JukeBox");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setMinimumSize(new Dimension(300, 400));
 
