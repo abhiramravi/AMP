@@ -253,7 +253,7 @@ public class JamPlayer {
 		});
 		file.add(sortPlaylist);
 		
-
+		/*//Work of other batch
 		JMenuItem createPlaylist = new JMenuItem("Create playlist");
 		createPlaylist.addActionListener(new ActionListener() {
 
@@ -262,7 +262,7 @@ public class JamPlayer {
 				createPlayListHandler();
 			}
 		});
-		file.add(createPlaylist);
+		file.add(createPlaylist);*/
 
 		JMenuItem quitItem = new JMenuItem("Quit");
 		quitItem.addActionListener(new ActionListener() {
