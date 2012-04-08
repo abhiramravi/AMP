@@ -42,10 +42,12 @@ public class PlayerPanel extends JPanel {
 		
 		// Add buttons
 		JButton prevButton = new JButton(new ImageIcon("previous.png"));
-		prevButton.setEnabled( false );
-		prevButton.addActionListener(new ActionListener() {
+		prevButton.setEnabled( true );
+		prevButton.addActionListener(new ActionListener() 
+		{
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 			}
 		});
 		add(prevButton);
@@ -88,7 +90,7 @@ public class PlayerPanel extends JPanel {
 		add(stopButton);
 		
 		JButton nextButton = new JButton(new ImageIcon("next.png"));
-		nextButton.setEnabled( false );
+		nextButton.setEnabled( true );
 		nextButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

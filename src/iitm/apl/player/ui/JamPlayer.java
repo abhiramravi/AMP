@@ -166,8 +166,7 @@ public class JamPlayer {
 			}
 		});
 
-		libraryTable
-				.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		libraryTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		JScrollPane libraryPane = new JScrollPane(libraryTable);
 
 		layout.setHorizontalGroup(layout
@@ -214,6 +213,46 @@ public class JamPlayer {
 			}
 		});
 		file.add(addSongs);
+		
+		JMenu sortPlaylist = new JMenu("Sort playlist");
+		JMenuItem byTitle = new JMenuItem("By Song Title");
+		JMenuItem byArtist = new JMenuItem("By Song Artist");
+		JMenuItem byAlbum = new JMenuItem("By Song Album");
+		JMenuItem byDuration = new JMenuItem("By Song Duration");
+		sortPlaylist.add(byTitle);
+		sortPlaylist.add(byArtist);
+		sortPlaylist.add(byAlbum);
+		sortPlaylist.add(byDuration);
+		byTitle.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				libraryModel.sortSongListing(1);
+			}
+		});
+		byArtist.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				libraryModel.sortSongListing(3);
+			}
+		});
+		byAlbum.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				libraryModel.sortSongListing(2);
+			}
+		});
+		byDuration.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				libraryModel.sortSongListing(4);
+			}
+		});
+		file.add(sortPlaylist);
+		
 
 		JMenuItem createPlaylist = new JMenuItem("Create playlist");
 		createPlaylist.addActionListener(new ActionListener() {

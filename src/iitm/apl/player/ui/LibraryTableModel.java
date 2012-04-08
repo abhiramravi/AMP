@@ -3,6 +3,9 @@ package iitm.apl.player.ui;
 import iitm.apl.bktree.BKTree;
 import iitm.apl.player.Song;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -42,7 +45,7 @@ public class LibraryTableModel extends AbstractTableModel {
 		resetIdx();
 		fireTableDataChanged();
 	}
-
+	
 	public void filter(String searchTerm, BKTree<String> songTree, Vector<Song> songVector, Hashtable wordToSong) {
 		// TODO: Connect the searchText keyPressed handler to update the filter
 		// here.
@@ -162,6 +165,62 @@ public class LibraryTableModel extends AbstractTableModel {
 		resetIdx();
 		fireTableDataChanged();
 	}
+	private class DurationComparator implements Comparator<Song> 
+	{
+        @Override
+        public int compare(Song arg0, Song arg1) 
+        {
+                return arg1.getDuration() - arg0.getDuration();
+        }
+	}
+	private class TitleComparator implements Comparator<Song> 
+	{
+        @Override
+        public int compare(Song arg0, Song arg1) 
+        {
+                return arg0.getTitle().compareTo(arg1.getTitle());
+        }
+	}
+	private class AlbumComparator implements Comparator<Song> 
+	{
+        @Override
+        public int compare(Song arg0, Song arg1) 
+        {
+                return arg0.getAlbum().compareTo(arg1.getAlbum());
+        }
+	}
+	private class ArtistComparator implements Comparator<Song> 
+	{
+        @Override
+        public int compare(Song arg0, Song arg1) 
+        {
+                return arg0.getArtist().compareTo(arg1.getArtist());
+        }
+	}
+	/*
+	 * @param - choice:
+	 *	1 - title
+	 *  2 - album
+	 *  3 - artist
+	 *  4 - duration
+	 * */
+	public void sortSongListing (int choice) 
+	{
+        Song[] songs = new Song[songListing.size()];
+        for ( int i = 0; i < songListing.size(); i++ )
+                songs[i] = songListing.elementAt(i);
+
+        if(choice == 1) Arrays.sort( songs, new TitleComparator() );
+        if(choice == 2) Arrays.sort( songs, new AlbumComparator() );
+        if(choice == 3) Arrays.sort( songs, new ArtistComparator() );
+        if(choice == 4) Arrays.sort( songs, new DurationComparator() );
+
+        for ( int i = 0; i < songListing.size(); i++ )
+                songListing.setElementAt( songs[i], i );
+
+        fireTableDataChanged();
+	}
+	
 	
 	public void resetIdx()
 	{
