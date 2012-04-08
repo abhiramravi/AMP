@@ -36,7 +36,7 @@ public class JamPlayer {
 	public static LibraryTableModel libraryModel;
 
 	private Thread playerThread = null;
-	private ThreadedPlayer player = null;
+	public static ThreadedPlayer player = null;
 	
 	public static JLabel currentStatus = new JLabel("Now Playing : ");
 

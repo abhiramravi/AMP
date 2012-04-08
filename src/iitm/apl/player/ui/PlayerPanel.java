@@ -58,6 +58,10 @@ public class PlayerPanel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) 
 			{
+				Song prev = JamPlayer.libraryModel.getPrevSong();
+				JamPlayer.player.setSong(prev);
+				JamPlayer.pPanel.setSong(prev);
+				JamPlayer.currentStatus.setText("Now Playing : "+prev.toString());
 			}
 		});
 		add(prevButton);
@@ -102,7 +106,12 @@ public class PlayerPanel extends JPanel {
 		nextButton.setEnabled( true );
 		nextButton.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
+				Song next = JamPlayer.libraryModel.getNextSong();
+				player.setSong(next);
+				JamPlayer.pPanel.setSong(next);
+				JamPlayer.currentStatus.setText("Now Playing : "+next.toString());
 			}
 		});
 		add(nextButton);
