@@ -56,7 +56,7 @@ public class LibraryTableModel extends AbstractTableModel {
 			return currentSong;
 		}
 		int i = songListing.indexOf(currentSong);
-		if(songListing.capacity() > i) {
+		if(!songListing.lastElement().isSameAs(currentSong)) {
 			currentSong = songListing.get(i+1);
 			return currentSong;
 		}
@@ -72,7 +72,7 @@ public class LibraryTableModel extends AbstractTableModel {
 			return currentSong;
 		}
 		int i = songListing.indexOf(currentSong);
-		if(songListing.capacity() > 1) {
+		if(i >= 1) {
 			currentSong = songListing.get(i-1);
 			return currentSong;
 		}
