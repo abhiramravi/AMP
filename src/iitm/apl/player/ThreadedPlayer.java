@@ -111,6 +111,7 @@ public class ThreadedPlayer implements Runnable {
 			setState(State.PLAY);
 			rawPlay(decodedFormat, din);
 			setState(State.STOP);
+			
 			in.close();
 
 		} catch (Exception e) {
@@ -151,7 +152,8 @@ public class ThreadedPlayer implements Runnable {
 
 			// Keep playing till you reach the end of the file or the player has
 			// been stopped.
-			while (!trackComplete && state != State.STOP) {
+			while (!trackComplete && state != State.STOP) 
+			{
 				trackComplete = ((nBytesRead = din.read(data, 0, data.length)) == -1);
 
 				// Check if you have been paused; if so, wait until that state
@@ -175,7 +177,7 @@ public class ThreadedPlayer implements Runnable {
 					line.start();
 				}
 				// Actually write bytes to the audio device
-				line.write(data, 0, nBytesRead);
+				if(!trackComplete && state != State.STOP) line.write(data, 0, nBytesRead);
 
 			}
 

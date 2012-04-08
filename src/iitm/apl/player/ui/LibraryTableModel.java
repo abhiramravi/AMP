@@ -86,7 +86,11 @@ public class LibraryTableModel extends AbstractTableModel {
 		Vector<Song> yin = new Vector<Song>();
 		Vector<Song> yang = new Vector<Song>();
 		boolean isYin = true;
-		
+		/* The Yin-Yang funda :
+		 * 	Basically, to find the results for multiple search words, find the ones for each word, and then take their 
+		 * intersection. This is done using only two vector lists. An element is added to one list, only if it is already
+		 * present in the other list (except the starting list, of course)
+		 * */
 		for(int i = 0; i < searchTermWords.length; i++)
 		{
 			if(isYin)
